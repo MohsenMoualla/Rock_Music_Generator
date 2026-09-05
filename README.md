@@ -11,16 +11,17 @@ Trained on [LPD-5 Cleansed](https://salu133445.github.io/lpd/) (Lakh Pianoroll D
 This repo holds the **code**, not the trained model or generated data — checkpoints, the tokenized dataset, and generated audio/MIDI are excluded (see [Data & checkpoints](#data--checkpoints) below for why and how to reproduce them).
 
 ```
-.
+midi_generator/
 ├── data/
-│   ├── preprocess.py         # Raw LPD-5 .npz -> tokenized .json
-│   └── dataset.py            # Train/val split, batching                 
+│   ├── preprocess.py      # Data preprocessing (npz → tokens)
+│   └── dataset.py         # PyTorch Dataset with group-boundary alignment
 ├── model/
-│   ├── transformer.py       # Decoder-only Transformer architecture
-│   ├── train.py             # Training loop, checkpointing, LR schedule
-│   ├── app.py               # Gradio GUI — wraps generate.py's pipeline
-│   └── generate.py          # Sampling, decoding, MIDI + audio rendering
-└── requirements.txt
+│   ├── transformer.py     # GPT-style Transformer model
+│   ├── train.py           # Training loop with checkpoint resume
+│   └── generate.py        # Generation → MIDI → MP3
+├── checkpoints/           # Saved model checkpoints
+├── outputs/               # Generated MIDI/MP3 files
+└── soundfonts/            # FluidR3_GM.sf2 (for MP3 conversion)
 ```
 
 ## How it works
